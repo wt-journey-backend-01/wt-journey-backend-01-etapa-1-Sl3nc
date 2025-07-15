@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Contato</title>
+</head>
+
+<body>
+    <h1>Entre em contato conosco!</h1>
+    <form id="formSuggest" method="get">
+        <label for="fname">Nome
+            <input type="text" name="nome" id="fname" required>
+        </label>
+        <label for="fname">E-mail
+            <input type="email" name="email" id="fmail" required>
+        </label>
+        <label for="fname">Assunto
+            <input type="text" name="assunto" id="fsubject" required>
+        </label>
+        <label for="fmessage">Mensagem
+            <textarea type="text" name="mensagem" id="fmessage" required></textarea>
+        </label>
+        <button type="submit">Enviar</button>
+    </form>
+</body>
+
+</html>
+
+<script>
+    const form = document.getElementById("formSuggest");
+
+    form.addEventListener("submit", formSubmit);
+
+    function formSubmit(e) {
+        e.preventDefault()
+
+        const data = new FormData(form);
+        const formData = Array.from(data.keys()).reduce((result, key) => {
+            result[key] = data.get(key);
+            return result;
+        }, {});
+
+
+        fetch("/contato", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.text())
+            .then(htmlText => document.write(htmlText))
+            .catch(error => console.log(error))
+    }
+</script>
