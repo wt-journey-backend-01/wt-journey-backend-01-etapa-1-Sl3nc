@@ -22,9 +22,9 @@
     <h2>Sugestão de lanche</h2>
     <form id="formSuggest" method="get">
         <label for="fname">Nome
-            <input type="text" name="name" id="fname" required>
+            <input type="text" name="nome" id="fname" required>
         </label>
-        <textarea name="seed" id="fseed" required placeholder="Cite os principais ingredientes..."></textarea>
+        <textarea name="ingredientes" id="fseed" required placeholder="Cite os principais ingredientes..."></textarea>
         <button type="submit">Enviar</button>
     </form>
 </body>
@@ -90,8 +90,8 @@
     function formSubmit(e) {
         e.preventDefault()
 
-        const name = document.querySelector('input[name="name"]').value
-        const seed = document.querySelector('textarea[name="seed"]').value
+        const name = document.querySelector('input[name="nome"]').value
+        const seed = document.querySelector('textarea[name="ingredientes"]').value
 
         fetch(`/sugestao?nome=${name}&ingredientes=${seed}`)
             .then(response => response.text())
